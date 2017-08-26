@@ -1,9 +1,12 @@
 var Stack = function() {
-    this._storage =
-    this.add = function(){
-      // write me
+    this._storage = []
+    this.add = function(value){
+    	this._storage.push(value);
+      
     };
     this.remove = function() {
-      // write me
+      var top = this._storage[this._storage.length-1]
+      this._storage.pop();
+      return top;
     };
   };
