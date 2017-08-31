@@ -9,11 +9,39 @@ var makeHashTable = function() {
       },
 
       insert: function(key, value) {
-        //your code is here
-        this._storage[hashFn(key, max)] = value;
+      	var index = hashFn(key, max);
+
+        //first step : retrieve a bucket
+        var bucket = this._storage.get(index);
+
+        // if bucket not found, create it
+        if( !bucket ){
+        	bucket =[];
+        	this. _storage.set(index , bucket);
+        }
+        var found =false;
+        for (var i = 0; i < bucket.length; i++) {
+        	var tuple = bucket[i];
+        	//now we check key is exists then update it  
+        	if( tuple[0] === k){
+        		tuple[1] = v ;
+        		found = true;
+        		break;
+        	}
+        }
+        // now if the key is not exists
+        if ( !found ){
+        	// insert a new tuple to the bucket
+        	bucket.push([k,v]);
+        }
+        
+    },
+      retrieve: function(key) {
+        return this._storage[hashFn(key, max)];
+      },
     }
-  }
 };
+
 
 // This is a "hashing function". You don't need to worry about it, just use it to turn any key into a pseudo-random key
 var hashFn = function(str, max) {
